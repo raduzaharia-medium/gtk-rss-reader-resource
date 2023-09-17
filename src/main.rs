@@ -1,17 +1,18 @@
 mod main_window;
 
 use main_window::MainWindow;
+use gtk4::prelude::GtkWindowExt;
 
 use gtk4::{
     gio::resources_register_include,
     prelude::{ApplicationExt, ApplicationExtManual},
-    traits::WidgetExt,
 };
 use libadwaita::Application;
 
 fn build_ui(application: &Application) {
     let window = MainWindow::new(application);
-    window.show();
+    window.set_image();
+    window.present();
 }
 
 pub fn main() {

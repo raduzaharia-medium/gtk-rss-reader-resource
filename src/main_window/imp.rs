@@ -1,32 +1,39 @@
 use super::MainWindow;
 
-use glib::{
-    object_subclass,
-    subclass::{
-        object::{ObjectImpl, ObjectImplExt},
-        types::ObjectSubclass,
-        InitializingObject,
-    },
+use glib::subclass::{
+    object::ObjectImplExt,
+    prelude::{ObjectImpl, ObjectSubclass},
+    InitializingObject,
 };
+
+use gtk4::subclass::widget::CompositeTemplateClass;
+use gtk4::subclass::widget::WidgetClassExt;
 use gtk4::{
-    prelude::InitializingWidgetExt,
     subclass::{
         application_window::ApplicationWindowImpl,
-        prelude::{TemplateChild, WidgetImpl, WindowImpl},
-        widget::{CompositeTemplate, WidgetClassSubclassExt},
+        prelude::{
+            CompositeTemplateInitializingExt as InitializingWidgetExt, TemplateChild, WidgetImpl,
+            WindowImpl,
+        },
     },
-    Button, CompositeTemplate,
+    Button, CompositeTemplate, Image,
 };
 use libadwaita::{subclass::prelude::AdwApplicationWindowImpl, ApplicationWindow};
 
-#[derive(CompositeTemplate, Default)]
+#[derive(CompositeTemplate, Default, Debug)]
 #[template(resource = "/main-window.ui")]
 pub struct MainWindowTemplate {
     #[template_child]
+    pub name: TemplateChild<gtk4::Label>,
+
+    #[template_child]
     pub button: TemplateChild<Button>,
+
+    #[template_child]
+    pub image: TemplateChild<Image>,
 }
 
-#[object_subclass]
+#[glib::object_subclass]
 impl ObjectSubclass for MainWindowTemplate {
     const NAME: &'static str = "MainWindow";
 
@@ -34,7 +41,7 @@ impl ObjectSubclass for MainWindowTemplate {
     type ParentType = ApplicationWindow;
 
     fn class_init(my_class: &mut Self::Class) {
-        Self::bind_template(my_class);
+        my_class.bind_template();
     }
 
     fn instance_init(obj: &InitializingObject<Self>) {
@@ -43,8 +50,8 @@ impl ObjectSubclass for MainWindowTemplate {
 }
 
 impl ObjectImpl for MainWindowTemplate {
-    fn constructed(&self, obj: &Self::Type) {
-        self.parent_constructed(obj);
+    fn constructed(&self) {
+        self.parent_constructed();
     }
 }
 
