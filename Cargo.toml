@@ -4,9 +4,10 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+gtk4 = { version = "0.7.2", features = ["v4_12"] }
 libadwaita = "*"
-gtk4 = "*"
-glib = "*"
+glib = "0.18.2"
 
 [build-dependencies]
-libadwaita = "*"
+glib-build-tools = "0.18.0"
+

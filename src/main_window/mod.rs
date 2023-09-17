@@ -1,8 +1,9 @@
-mod template;
+mod imp;
 
-use template::MainWindowTemplate;
+use glib::subclass::types::ObjectSubclassIsExt;
+use imp::MainWindowTemplate;
 
-use glib::{wrapper, Object};
+use libadwaita::glib::{wrapper, Object};
 use gtk4::{
     gio::{ActionGroup, ActionMap},
     Accessible, ApplicationWindow, Buildable, ConstraintTarget, Native, Root, ShortcutManager,
@@ -19,6 +20,11 @@ wrapper! {
 
 impl MainWindow {
     pub fn new(app: &Application) -> Self {
-        Object::new(&[("application", app)]).expect("Failed to create `Window`.")
+        Object::builder().property("application", app).build()
+    }
+
+    pub fn set_image(&self) {
+        let imp = self.imp();
+        imp.image.set_from_resource(Some("/test.png"));
     }
 }
