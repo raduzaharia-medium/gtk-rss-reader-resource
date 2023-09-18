@@ -31,6 +31,9 @@ pub struct MainWindowTemplate {
 
     #[template_child]
     pub image: TemplateChild<Image>,
+
+    #[template_child]
+    pub network_image: TemplateChild<Image>
 }
 
 #[glib::object_subclass]

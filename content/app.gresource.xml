@@ -3,5 +3,6 @@
     <gresource>
         <file compressed="true">main-window.ui</file>
         <file>test.png</file>
+        <file>loading.gif</file>
     </gresource>
 </gresources>
